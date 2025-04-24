@@ -17,9 +17,10 @@ class BookController extends Controller
      */
     public function index()
     {
-        // Note: for real-world application we would use pagination with caching
-        $books = Book::all();
-        
+        // Note: For real-world applications, pagination and caching should be implemented 
+        // to optimize performance and reduce database load.
+        $books = Book::with(['publisher', 'authors', 'genres'])->get();
+    
         return $this->successResponse(BookResource::collection($books));
     }
 
