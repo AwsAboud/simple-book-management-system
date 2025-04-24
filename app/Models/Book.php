@@ -17,7 +17,7 @@ class Book extends Model
     // Get the publisher that owns the book.
     public function publisher(): BelongsTo
     {
-        return $this->belongTo(Publisher::class);
+        return $this->belongsTo(Publisher::class);
     }
 
     // Get the authors that belong to the book.

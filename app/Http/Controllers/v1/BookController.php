@@ -20,7 +20,7 @@ class BookController extends Controller
         // Note: for real-world application we would use pagination with caching
         $books = Book::all();
         
-        return $this->successResponse(new BookResource($books));
+        return $this->successResponse(BookResource::collection($books));
     }
 
     /**
@@ -81,5 +81,8 @@ class BookController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
+
+        return $this->successResponse(null, 'Book deleted successfully.', 204);
+
     }
 }
