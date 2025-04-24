@@ -1,61 +1,77 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Book Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+## Entities and Attributes
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Book
+- `id` (big integer, primary key)
+- `publisher_id` (unsigned big integer, foreign key → `publishers.id`)
+- `title` (string)
+- `description` (text)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Author
+- `id` (big integer, primary key)
+- `country_id` (unsigned big integer, foreign key → `countries.id`)
+- `name` (string)
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Genre
+- `id` (big integer, primary key)
+- `name` (string)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Publisher
+- `id` (big integer, primary key)
+- `country_id` (unsigned big integer, foreign key → `countries.id`)
+- `name` (string, unique)
+- `email` (string, unique)
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Country
+- `id` (big integer, primary key)
+- `country_name` (string)
+- `nationality` (string)
+- `alpha2_code` (string, length 2)
+- `alpha3_code` (string, length 3)
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+### Pivot Tables
 
-## Contributing
+#### author_book
+- `id` (big integer, primary key)
+- `book_id` (unsigned big integer, foreign key → `books.id`)
+- `author_id` (unsigned big integer, foreign key → `authors.id`)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+#### book_genre
+- `id` (big integer, primary key)
+- `book_id` (unsigned big integer, foreign key → `books.id`)
+- `genre_id` (unsigned big integer, foreign key → `genres.id`)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
+## Relationships
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. **Books ↔ Authors** (Many-to-Many)
+   - A book can have multiple authors.
+   - An author can write multiple books.
+   - Implemented via pivot table `author_book`.
 
-## License
+2. **Books ↔ Genres** (Many-to-Many)
+   - A book can belong to multiple genres.
+   - A genre can include multiple books.
+   - Implemented via pivot table `book_genre`.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+3. **Publisher → Books** (One-to-Many)
+   - A publisher can publish multiple books.
+   - A book belongs to one publisher (via `publisher_id`).
+
+4. **Country → Publishers** (One-to-Many)
+   - A country can have multiple publishers based there.
+   - A publisher belongs to one country (via `country_id`).
+
+5. **Country → Authors** (One-to-Many)
+   - A country can be the origin for multiple authors.
+   - An author belongs to one country (via `country_id`).
+---
+
