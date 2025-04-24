@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('countries', function (Blueprint $table) {
+        Schema::create('authors', function (Blueprint $table) {
             $table->id();
-            $table->string('country_name');
-            $table->string('nationality');
-            $table->string('alpha2_code', 2);
-            $table->string('alpha3_code', 3);
+            $table->foreignId('country_id')->constrained('countries')->cascadeOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('nationalities');
+        Schema::dropIfExists('authors');
     }
 };
