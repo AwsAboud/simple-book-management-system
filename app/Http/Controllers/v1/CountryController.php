@@ -19,6 +19,5 @@ class CountryController extends BaseCRUDController
             UpdateCountryRequest::class,
             CountryResource::class
         );
-
     }
 }
