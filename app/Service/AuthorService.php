@@ -11,7 +11,8 @@ class AuthorService extends BaseService
      */
     public function __construct(Author $model)
     {
-        $this->model = $model;
-        $this->egarLoadRelations = ['country'];
+        $egarLoadRelations = ['country'];
+        parent::__construct($model,  $egarLoadRelations);
+       
     }
 }

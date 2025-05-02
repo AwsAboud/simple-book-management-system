@@ -16,7 +16,7 @@ class PublisherResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'country_name' => $this->country->name,
+            'country_name' => $this->whenLoaded('country', fn() => $this->country->country_name),
             'name' => $this->name,
             'email' => $this->email,
         ];

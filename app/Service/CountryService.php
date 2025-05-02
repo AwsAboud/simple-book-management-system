@@ -11,6 +11,6 @@ class CountryService extends BaseService
      */
     public function __construct(Country $model)
     {
-        $this->model = $model;
+        parent::__construct($model);
     }
 }

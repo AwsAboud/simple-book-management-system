@@ -11,7 +11,7 @@ class PublisherService extends BaseService
      */
     public function __construct(Publisher $model)
     {
-        $this->model = $model;
-        $this->egarLoadRelations = ['country'];
+        $egarLoadRelations = ['country'];
+        parent::__construct($model, $egarLoadRelations);
     }
 }

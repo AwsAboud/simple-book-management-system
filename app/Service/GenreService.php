@@ -11,6 +11,6 @@ class GenreService extends BaseService
      */
     public function __construct(Genre $model)
     {
-        $this->model = $model;
+        parent::__construct($model);
     }
 }

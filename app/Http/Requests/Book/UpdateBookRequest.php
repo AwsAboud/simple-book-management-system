@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Book;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,12 +22,12 @@ class UpdateBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'publisher_id' => ['required', 'exists:publishers,id'],
-            'title' => ['required', 'string', 'max:255'],
-            'description' => ['required', 'string'],
-            'genres' => ['required', 'array'],
+            'publisher_id' => ['sometimes', 'exists:publishers,id'],
+            'title' => ['sometimes', 'string', 'max:255'],
+            'description' => ['sometimes', 'string'],
+            'genres' => ['sometimes', 'array'],
             'genres.*' => ['required', 'exists:genres,id'],
-            'authors' => ['required', 'array'],
+            'authors' => ['sometimes', 'array'],
             'authors.*' => ['required', 'exists:authors,id'],   
         ];
     }
