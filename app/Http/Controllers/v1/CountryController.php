@@ -18,9 +18,7 @@ class CountryController extends BaseCRUDController
             CreateCountryRequest::class,
             UpdateCountryRequest::class,
             CountryResource::class
-    );
-        // $this->createRequest = $createRequest;
-        // $this->updateRequest = $updateRequest;
+        );
 
     }
 }
